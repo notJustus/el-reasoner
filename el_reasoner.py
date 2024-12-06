@@ -1,4 +1,7 @@
 import sys
+import random
+import itertools
+from World import World, Element
 from py4j.java_gateway import JavaGateway  # type: ignore
 
 # Initialize the Java Gateway connection
@@ -28,14 +31,80 @@ def main():
 
     process_ontology(ontology_file, class_name)
 
-    # 1. remove equivalence axioms
-    # 2? convert NOT etc. to allowed operators
     apply_el_alorithm(class_name)
 
 def apply_el_alorithm(class_name):
+    # Start with one subsumer. Later just do a for loop that iterates over all conceptNames
+    subsumerStr = random.choice(conceptNames)
+    #subsumer = elFactory.getConceptName(subsumerStr)
+    #subsumee = elFactory.getConceptName(class_name)
+    world = World()
     # transform each equivalence axioms to two subsumptions
     remove_equivalence_axioms()
 
+    sampleWorld = World()
+    element0 = Element(0)
+    element0.add_concept(random.sample(allConcepts, 10))
+
+    apply_and_rule_1(sampleWorld, element0)
+    #print(f"Num Concepts before: {len(element0.concepts)}")
+    apply_and_rule_2(element0)
+    #print(f"Num Concepts after: {len(element0.concepts)}")
+    apply_exist_rule_1(element0)
+
+
+def apply_t_rule(world, element):
+    pass
+
+def apply_and_rule_1(world, element: Element):
+    concepts = element.concepts
+
+    for concept in concepts:
+        conceptType = concept.getClass().getSimpleName()
+        if conceptType == "ConceptConjunction":
+            print(formatter.format(concept))
+            conjuncts = concept.getConjuncts()
+            if len(conjuncts) != 2:
+                print("And-Rule-1 Conjunction Error")
+                continue
+
+            newConceptA = conjuncts[0]
+            newConceptB = conjuncts[1]
+
+            element.concepts.append(newConceptA)
+            element.concepts.append(newConceptB)
+
+def apply_and_rule_2(element: Element):
+    concepts = element.concepts
+    
+    # Generate all unique combinations of 2 concepts
+    # itertools.combinations ensures no repeated pairs and no (a,a) combinations
+    for a, b in itertools.combinations(concepts, 2):
+        conjunction = elFactory.getConjunction(a, b)
+        
+        # Check if conjunction is in allConcepts
+        if conjunction in allConcepts:
+            print(f"Adding conjunction: {formatter.format(conjunction)}")
+            element.add_concept(conjunction)
+
+def apply_exist_rule_1(element: Element):
+    concepts = element.concepts
+
+    for concept in concepts:
+        conceptType = concept.getClass().getSimpleName()
+        if conceptType == "ExistentialRoleRestriction":
+            role = concept.role()
+            if not element.connections[role]
+            print("I found an existential role restriction: "+formatter.format(concept))
+            print("The role is: "+formatter.format(concept.role()))
+            print("The filler is: "+formatter.format(concept.filler()))
+            
+
+def apply_exist_rule_2():
+    pass
+
+def apply_sub_rule():
+    pass
 
 def remove_equivalence_axioms():
     global axioms
@@ -100,8 +169,8 @@ def load_ontology(ontology_file):
         # Extract TBox axioms and concepts
         tbox = ontology.tbox()
         axioms = list(tbox.getAxioms())
-        allConcepts = ontology.getSubConcepts()
-        conceptNames = ontology.getConceptNames()
+        allConcepts = list(ontology.getSubConcepts())
+        conceptNames = list(ontology.getConceptNames())
 
         print_ontology_summary()
 
