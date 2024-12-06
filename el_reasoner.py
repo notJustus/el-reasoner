@@ -28,6 +28,46 @@ def main():
 
     process_ontology(ontology_file, class_name)
 
+    # 1. remove equivalence axioms
+    # 2? convert NOT etc. to allowed operators
+    apply_el_alorithm(class_name)
+
+def apply_el_alorithm(class_name):
+    # transform each equivalence axioms to two subsumptions
+    remove_equivalence_axioms()
+
+
+def remove_equivalence_axioms():
+    global axioms
+    newAxioms = []
+    
+    axioms_copy = axioms.copy()
+    
+    for axiom in axioms_copy:
+        axiomType = axiom.getClass().getSimpleName()
+        
+        if axiomType == "EquivalenceAxiom":
+            subConcepts = axiom.getConcepts()
+            
+            if len(subConcepts) != 2:
+                print(f"Equivalence axiom error: Axiom does not consist of two sub-concepts")
+                continue
+            
+            # Create two new axioms representing the bidirectional subsumption
+            newAxiomA = elFactory.getGCI(subConcepts[0], subConcepts[1])
+            newAxiomB = elFactory.getGCI(subConcepts[1], subConcepts[0])
+            
+            # Append the new axioms to the newAxioms list
+            newAxioms.append(newAxiomA)
+            newAxioms.append(newAxiomB)
+            
+            # Remove the original equivalence axiom from the axioms list
+            axioms.remove(axiom)
+    
+    axioms.extend(newAxioms)
+    
+    print(f"Number of axioms after transformation: {len(axioms)}")
+
 def process_ontology(ontology_file, class_name):
     """
     Process the ontology file and perform actions related to the class name.
@@ -59,7 +99,7 @@ def load_ontology(ontology_file):
 
         # Extract TBox axioms and concepts
         tbox = ontology.tbox()
-        axioms = tbox.getAxioms()
+        axioms = list(tbox.getAxioms())
         allConcepts = ontology.getSubConcepts()
         conceptNames = ontology.getConceptNames()
 
@@ -73,7 +113,10 @@ def print_ontology_summary():
     Print a summary of the loaded ontology.
     """
     print(f"There are {len(axioms) if axioms else 0} axioms in the TBox.")
+    # for axiom in axioms:
+    #     print(formatter.format(axiom))
     print(f"There are {len(allConcepts) if allConcepts else 0} concepts in the ontology.")
+    # print([formatter.format(x) for x in allConcepts])
     print(f"There are {len(conceptNames) if conceptNames else 0} concept names in the ontology.")
 
 if __name__ == "__main__":
