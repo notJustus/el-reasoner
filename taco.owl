@@ -1,0 +1,979 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="p://www.semanticweb.org/nadjaspannowsky/ontologies/2024/tacoOntology"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="p://www.semanticweb.org/nadjaspannowsky/ontologies/2024/tacoOntology">
+    <Prefix name="" IRI="http://www.semanticweb.org/nadjaspannowsky/ontologies/2024/11/untitled-ontology-15/"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <Literal xml:lang="en">This is an ontology about tacos.</Literal>
+    </Annotation>
+    <Declaration>
+        <Class IRI="#Avocado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Base"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Beans"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Beef"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CheddarCheese"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CheeseTopping"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CheesyTaco"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Chicken"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ChiliSauce"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CornTaco"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CornTortilla"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Cucumber"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DairySourCream"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Fish"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FlourTaco"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FlourTortilla"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FriedOnions"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#GarlicAioli"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Guacamole"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Ingredient"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Jalapenos"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Lettuce"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Meat"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MildSalsa"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MildSauce"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MozzarellaCheese"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#NonTraditionalTaco"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Pork"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Protein"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#QuesoFresco"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Salmon"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Salsa"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Sauce"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SauceLoverTaco"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SourCream"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SpecialTopping"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SpecialtyTaco"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SpicySalsa"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SpicySauce"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Sriracha"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Taco"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TacoChips"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TacoOnMenu"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TacoX"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Tofu"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Tomato"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Topping"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TraditionalTaco"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Tuna"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TunaFusionTaco"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VeganCheese"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VeganProtein"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VeganSourCream"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VeganTaco"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VeganTopping"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VegetableTopping"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VegetarianTaco"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VeggieSpecial"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasBase"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasIngredient"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasProtein"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasSauce"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTopping"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isBaseOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isIngredientOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isPartOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isProteinOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isSauceOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isToppingOf"/>
+    </Declaration>
+    <EquivalentClasses>
+        <Class IRI="#Base"/>
+        <ObjectUnionOf>
+            <Class IRI="#CornTortilla"/>
+            <Class IRI="#FlourTortilla"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#CheeseTopping"/>
+        <ObjectUnionOf>
+            <Class IRI="#CheddarCheese"/>
+            <Class IRI="#MozzarellaCheese"/>
+            <Class IRI="#QuesoFresco"/>
+            <Class IRI="#VeganCheese"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#CheesyTaco"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Taco"/>
+            <ObjectMinCardinality cardinality="2">
+                <ObjectProperty IRI="#hasTopping"/>
+                <Class IRI="#CheeseTopping"/>
+            </ObjectMinCardinality>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#CornTaco"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Taco"/>
+            <ObjectAllValuesFrom>
+                <ObjectProperty IRI="#hasBase"/>
+                <Class IRI="#CornTortilla"/>
+            </ObjectAllValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Fish"/>
+        <ObjectUnionOf>
+            <Class IRI="#Salmon"/>
+            <Class IRI="#Tuna"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#FlourTaco"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Taco"/>
+            <ObjectAllValuesFrom>
+                <ObjectProperty IRI="#hasBase"/>
+                <Class IRI="#FlourTortilla"/>
+            </ObjectAllValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Meat"/>
+        <ObjectUnionOf>
+            <Class IRI="#Beef"/>
+            <Class IRI="#Chicken"/>
+            <Class IRI="#Pork"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#NonTraditionalTaco"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Taco"/>
+            <ObjectComplementOf>
+                <Class IRI="#TraditionalTaco"/>
+            </ObjectComplementOf>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Protein"/>
+        <ObjectUnionOf>
+            <Class IRI="#Fish"/>
+            <Class IRI="#Meat"/>
+            <Class IRI="#VeganProtein"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Salsa"/>
+        <ObjectUnionOf>
+            <Class IRI="#MildSalsa"/>
+            <Class IRI="#SpicySalsa"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Salsa"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#isPartOf"/>
+            <Class IRI="#TraditionalTaco"/>
+        </ObjectSomeValuesFrom>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Sauce"/>
+        <ObjectUnionOf>
+            <Class IRI="#MildSauce"/>
+            <Class IRI="#Salsa"/>
+            <Class IRI="#SourCream"/>
+            <Class IRI="#SpicySauce"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#SauceLoverTaco"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Taco"/>
+            <ObjectMinCardinality cardinality="3">
+                <ObjectProperty IRI="#hasSauce"/>
+                <Class IRI="#Sauce"/>
+            </ObjectMinCardinality>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#SourCream"/>
+        <ObjectUnionOf>
+            <Class IRI="#DairySourCream"/>
+            <Class IRI="#VeganSourCream"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#SpecialTopping"/>
+        <ObjectUnionOf>
+            <Class IRI="#FriedOnions"/>
+            <Class IRI="#Jalapenos"/>
+            <Class IRI="#TacoChips"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#SpecialtyTaco"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Taco"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasTopping"/>
+                <Class IRI="#CheddarCheese"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasTopping"/>
+                <Class IRI="#MozzarellaCheese"/>
+            </ObjectSomeValuesFrom>
+            <ObjectMinCardinality cardinality="2">
+                <ObjectProperty IRI="#hasTopping"/>
+                <Class IRI="#SpecialTopping"/>
+            </ObjectMinCardinality>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#SpicySalsa"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#isPartOf"/>
+            <Class IRI="#Salsa"/>
+        </ObjectSomeValuesFrom>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#TacoX"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Taco"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasBase"/>
+                <Class IRI="#FlourTortilla"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasProtein"/>
+                <Class IRI="#Chicken"/>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectProperty IRI="#hasSauce"/>
+                <Class IRI="#Salsa"/>
+            </ObjectAllValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectProperty IRI="#hasTopping"/>
+                <Class IRI="#CheddarCheese"/>
+            </ObjectAllValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Topping"/>
+        <ObjectUnionOf>
+            <Class IRI="#CheeseTopping"/>
+            <Class IRI="#SpecialTopping"/>
+            <Class IRI="#VeganTopping"/>
+            <Class IRI="#VegetableTopping"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#TraditionalTaco"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Taco"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasBase"/>
+                <Class IRI="#CornTortilla"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasSauce"/>
+                <Class IRI="#Guacamole"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasSauce"/>
+                <Class IRI="#Salsa"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasTopping"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#Lettuce"/>
+                    <Class IRI="#QuesoFresco"/>
+                    <Class IRI="#Tomato"/>
+                </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectProperty IRI="#hasProtein"/>
+                <Class IRI="#Meat"/>
+            </ObjectAllValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#TunaFusionTaco"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Taco"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasIngredient"/>
+                <Class IRI="#SpicySauce"/>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectProperty IRI="#hasProtein"/>
+                <Class IRI="#Tuna"/>
+            </ObjectAllValuesFrom>
+            <ObjectMinCardinality cardinality="3">
+                <ObjectProperty IRI="#hasIngredient"/>
+                <Class IRI="#Topping"/>
+            </ObjectMinCardinality>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#VeganProtein"/>
+        <ObjectUnionOf>
+            <Class IRI="#Beans"/>
+            <Class IRI="#Tofu"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#VeganTaco"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Taco"/>
+            <ObjectComplementOf>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#hasSauce"/>
+                    <Class IRI="#DairySourCream"/>
+                </ObjectSomeValuesFrom>
+            </ObjectComplementOf>
+            <ObjectComplementOf>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#hasTopping"/>
+                    <Class IRI="#CheeseTopping"/>
+                </ObjectSomeValuesFrom>
+            </ObjectComplementOf>
+            <ObjectAllValuesFrom>
+                <ObjectProperty IRI="#hasProtein"/>
+                <Class IRI="#VeganProtein"/>
+            </ObjectAllValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#VeganTopping"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Topping"/>
+            <ObjectUnionOf>
+                <Class IRI="#SpecialTopping"/>
+                <Class IRI="#VeganCheese"/>
+                <Class IRI="#VegetableTopping"/>
+            </ObjectUnionOf>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#VegetableTopping"/>
+        <ObjectUnionOf>
+            <Class IRI="#Avocado"/>
+            <Class IRI="#Cucumber"/>
+            <Class IRI="#Lettuce"/>
+            <Class IRI="#Tomato"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#VegetarianTaco"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Taco"/>
+            <ObjectAllValuesFrom>
+                <ObjectProperty IRI="#hasProtein"/>
+                <Class IRI="#VeganProtein"/>
+            </ObjectAllValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#VeggieSpecial"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Taco"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasSauce"/>
+                <Class IRI="#MildSauce"/>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectProperty IRI="#hasProtein"/>
+                <Class IRI="#VeganProtein"/>
+            </ObjectAllValuesFrom>
+            <ObjectMaxCardinality cardinality="2">
+                <ObjectProperty IRI="#hasTopping"/>
+                <Class IRI="#Topping"/>
+            </ObjectMaxCardinality>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <SubClassOf>
+        <Class IRI="#Avocado"/>
+        <Class IRI="#VegetableTopping"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Base"/>
+        <Class IRI="#Ingredient"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Beans"/>
+        <Class IRI="#VeganProtein"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Beef"/>
+        <Class IRI="#Meat"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CheddarCheese"/>
+        <Class IRI="#CheeseTopping"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CheeseTopping"/>
+        <Class IRI="#Topping"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CheesyTaco"/>
+        <Class IRI="#Taco"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Chicken"/>
+        <Class IRI="#Meat"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ChiliSauce"/>
+        <Class IRI="#SpicySauce"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CornTaco"/>
+        <Class IRI="#Taco"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CornTaco"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#hasBase"/>
+            <Class IRI="#CornTortilla"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CornTortilla"/>
+        <Class IRI="#Base"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Cucumber"/>
+        <Class IRI="#VegetableTopping"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DairySourCream"/>
+        <Class IRI="#SourCream"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Fish"/>
+        <Class IRI="#Protein"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FlourTaco"/>
+        <Class IRI="#Taco"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FlourTortilla"/>
+        <Class IRI="#Base"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FriedOnions"/>
+        <Class IRI="#SpecialTopping"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#GarlicAioli"/>
+        <Class IRI="#MildSauce"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Guacamole"/>
+        <Class IRI="#MildSauce"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Jalapenos"/>
+        <Class IRI="#SpecialTopping"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Lettuce"/>
+        <Class IRI="#VegetableTopping"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Meat"/>
+        <Class IRI="#Protein"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MildSalsa"/>
+        <Class IRI="#MildSauce"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MildSalsa"/>
+        <Class IRI="#Salsa"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MildSauce"/>
+        <Class IRI="#Sauce"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MozzarellaCheese"/>
+        <Class IRI="#CheeseTopping"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#NonTraditionalTaco"/>
+        <Class IRI="#Taco"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Pork"/>
+        <Class IRI="#Meat"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Protein"/>
+        <Class IRI="#Ingredient"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#QuesoFresco"/>
+        <Class IRI="#CheeseTopping"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Salmon"/>
+        <Class IRI="#Fish"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Salsa"/>
+        <Class IRI="#Sauce"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Sauce"/>
+        <Class IRI="#Ingredient"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SauceLoverTaco"/>
+        <Class IRI="#TacoOnMenu"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SourCream"/>
+        <Class IRI="#MildSauce"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SourCream"/>
+        <Class IRI="#Sauce"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SpecialTopping"/>
+        <Class IRI="#Topping"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SpecialtyTaco"/>
+        <Class IRI="#TacoOnMenu"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SpicySalsa"/>
+        <Class IRI="#Salsa"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SpicySalsa"/>
+        <Class IRI="#SpicySauce"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SpicySauce"/>
+        <Class IRI="#Sauce"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Sriracha"/>
+        <Class IRI="#SpicySauce"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Taco"/>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasIngredient"/>
+                <Class IRI="#Ingredient"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasProtein"/>
+                <Class IRI="#Protein"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasSauce"/>
+                <Class IRI="#Sauce"/>
+            </ObjectSomeValuesFrom>
+            <ObjectExactCardinality cardinality="1">
+                <ObjectProperty IRI="#hasBase"/>
+                <Class IRI="#Base"/>
+            </ObjectExactCardinality>
+        </ObjectIntersectionOf>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Taco"/>
+        <ObjectIntersectionOf>
+            <ObjectMinCardinality cardinality="2">
+                <ObjectProperty IRI="#hasIngredient"/>
+                <Class IRI="#Ingredient"/>
+            </ObjectMinCardinality>
+            <ObjectMaxCardinality cardinality="9">
+                <ObjectProperty IRI="#hasIngredient"/>
+                <Class IRI="#Ingredient"/>
+            </ObjectMaxCardinality>
+        </ObjectIntersectionOf>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TacoChips"/>
+        <Class IRI="#SpecialTopping"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TacoOnMenu"/>
+        <Class IRI="#Taco"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TacoX"/>
+        <Class IRI="#Taco"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Tofu"/>
+        <Class IRI="#VeganProtein"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Tomato"/>
+        <Class IRI="#VegetableTopping"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Topping"/>
+        <Class IRI="#Ingredient"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TraditionalTaco"/>
+        <Class IRI="#TacoOnMenu"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Tuna"/>
+        <Class IRI="#Fish"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TunaFusionTaco"/>
+        <Class IRI="#TacoOnMenu"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TunaFusionTaco"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#hasIngredient"/>
+            <Class IRI="#Tuna"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VeganCheese"/>
+        <Class IRI="#CheeseTopping"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VeganProtein"/>
+        <Class IRI="#Protein"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VeganSourCream"/>
+        <Class IRI="#SourCream"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VeganTaco"/>
+        <Class IRI="#Taco"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VeganTaco"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#hasProtein"/>
+            <Class IRI="#VeganProtein"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VeganTopping"/>
+        <Class IRI="#Topping"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VegetableTopping"/>
+        <Class IRI="#Topping"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VegetarianTaco"/>
+        <Class IRI="#Taco"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VegetarianTaco"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#hasProtein"/>
+            <Class IRI="#VeganProtein"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VeggieSpecial"/>
+        <Class IRI="#TacoOnMenu"/>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="#CornTaco"/>
+        <Class IRI="#FlourTaco"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#CornTortilla"/>
+        <Class IRI="#FlourTortilla"/>
+    </DisjointClasses>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasBase"/>
+        <ObjectProperty IRI="#hasIngredient"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasProtein"/>
+        <ObjectProperty IRI="#hasIngredient"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasSauce"/>
+        <ObjectProperty IRI="#hasIngredient"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasTopping"/>
+        <ObjectProperty IRI="#hasIngredient"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#isBaseOf"/>
+        <ObjectProperty IRI="#isIngredientOf"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#isProteinOf"/>
+        <ObjectProperty IRI="#isIngredientOf"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#isSauceOf"/>
+        <ObjectProperty IRI="#isIngredientOf"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#isToppingOf"/>
+        <ObjectProperty IRI="#isIngredientOf"/>
+    </SubObjectPropertyOf>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasBase"/>
+        <ObjectProperty IRI="#isBaseOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasIngredient"/>
+        <ObjectProperty IRI="#isIngredientOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasProtein"/>
+        <ObjectProperty IRI="#isProteinOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasSauce"/>
+        <ObjectProperty IRI="#isSauceOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasTopping"/>
+        <ObjectProperty IRI="#isToppingOf"/>
+    </InverseObjectProperties>
+    <TransitiveObjectProperty>
+        <ObjectProperty IRI="#isPartOf"/>
+    </TransitiveObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasBase"/>
+        <Class IRI="#Taco"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasIngredient"/>
+        <Class IRI="#Taco"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasProtein"/>
+        <Class IRI="#Taco"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasSauce"/>
+        <Class IRI="#Taco"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasTopping"/>
+        <Class IRI="#Taco"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isBaseOf"/>
+        <Class IRI="#Base"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isIngredientOf"/>
+        <Class IRI="#Ingredient"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isProteinOf"/>
+        <Class IRI="#Protein"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isSauceOf"/>
+        <Class IRI="#Sauce"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isToppingOf"/>
+        <Class IRI="#Topping"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasBase"/>
+        <Class IRI="#Base"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasIngredient"/>
+        <Class IRI="#Ingredient"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasProtein"/>
+        <Class IRI="#Protein"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasSauce"/>
+        <Class IRI="#Sauce"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasTopping"/>
+        <Class IRI="#Topping"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isBaseOf"/>
+        <Class IRI="#Taco"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isIngredientOf"/>
+        <Class IRI="#Taco"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isProteinOf"/>
+        <Class IRI="#Taco"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isSauceOf"/>
+        <Class IRI="#Taco"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isToppingOf"/>
+        <Class IRI="#Taco"/>
+    </ObjectPropertyRange>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+
