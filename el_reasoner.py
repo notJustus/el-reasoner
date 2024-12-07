@@ -12,6 +12,8 @@ parser = gateway.getOWLParser()
 formatter = gateway.getSimpleDLFormatter()
 elFactory = gateway.getELFactory()
 
+random.seed(60)
+
 # Global variables
 ontology = None
 tbox = None
@@ -45,16 +47,36 @@ def apply_el_alorithm(class_name):
     sampleWorld = World()
     element0 = Element(0)
     element0.add_concept(random.sample(allConcepts, 10))
+    sampleWorld.add_element(element0)
 
     apply_and_rule_1(sampleWorld, element0)
     #print(f"Num Concepts before: {len(element0.concepts)}")
     apply_and_rule_2(element0)
     #print(f"Num Concepts after: {len(element0.concepts)}")
-    apply_exist_rule_1(element0)
+    apply_exist_rule_1(sampleWorld, element0)
+    print(f"\nWorld after:\n{sampleWorld}\n")
+    print("-----")
+    apply_exist_rule_2(sampleWorld, element0)
+    print("-----")
+    apply_sub_rule(sampleWorld, element0)
 
 
-def apply_t_rule(world, element):
-    pass
+def apply_t_rule(world: World, element: Element):
+    """
+    Apply T-rule for an element by adding the top concept
+    
+    :param world: The world containing all elements
+    :param element: The element to apply the rule to
+    """
+    # Create the top concept using elFactory
+    top_concept = elFactory.getTop()
+    
+    # Check if the top concept is in allConcepts
+    if top_concept in allConcepts:
+        # Add the top concept to the element if not already present
+        if top_concept not in element.concepts:
+            print(f"Adding top concept: {formatter.format(top_concept)}")
+            element.add_concept(top_concept)
 
 def apply_and_rule_1(world, element: Element):
     concepts = element.concepts
@@ -87,24 +109,126 @@ def apply_and_rule_2(element: Element):
             print(f"Adding conjunction: {formatter.format(conjunction)}")
             element.add_concept(conjunction)
 
-def apply_exist_rule_1(element: Element):
+def apply_exist_rule_1(world: World, element: Element):
+    """
+    Apply existential rule 1 for an element
+    
+    :param world: The world containing all elements
+    :param element: The element to apply the rule to
+    """
+    print(f"World before:\n{world}\n")
     concepts = element.concepts
 
     for concept in concepts:
         conceptType = concept.getClass().getSimpleName()
+        
+        # Check if the concept is an existential role restriction
         if conceptType == "ExistentialRoleRestriction":
             role = concept.role()
-            if not element.connections[role]
-            print("I found an existential role restriction: "+formatter.format(concept))
-            print("The role is: "+formatter.format(concept.role()))
-            print("The filler is: "+formatter.format(concept.filler()))
+            filler = concept.filler()
             
+            # Print debug information
+            print("Found existential role restriction: " + formatter.format(concept))
+            print("Role: " + formatter.format(role))
+            print("Filler: " + formatter.format(filler))
+            
+            # Check if this role already has successors
+            role_str = formatter.format(role)
+            if role_str not in element.connections:
+                element.connections[role_str] = set()
+            
+            # Flag to track if the restriction is already satisfied
+            restriction_satisfied = False
+            
+            # Check existing successors for the role
+            for successor in element.connections.get(role_str, set()):
+                # Check if the filler concept is in any of the successor's concepts
+                if successor.concepts and filler in successor.concepts:
+                    print("Concept already satisifed!")
+                    restriction_satisfied = True
+                    break
+            
+            # If restriction is not satisfied
+            if not restriction_satisfied:
+                # Try to find an existing element with the filler as initial concept
+                matching_element = None
+                for e in world.elements:
+                    if e.concepts and formatter.format(e.concepts[0]) == formatter.format(filler):
+                        matching_element = e
+                        break
+                
+                if matching_element:
+                    print("Found a matching element with correct init concept")
+                    # Use existing element as successor
+                    element.connect_to(matching_element, role_str)
+                else:
+                    print("Creating new element")
+                    # Create a new element with the filler as initial concept
+                    new_element = Element(len(world.elements))
+                    new_element.add_concept(filler)
+                    
+                    # Add the new element to the world
+                    world.add_element(new_element)
+                    
+                    # Connect the new element as a successor
+                    element.connect_to(new_element, role_str)
 
-def apply_exist_rule_2():
-    pass
+def apply_exist_rule_2(world: World, element: Element):
+    """
+    Apply existential rule 2 for an element
+    
+    :param world: The world containing all elements
+    :param element: The element to apply the rule to
+    """
+    # Iterate through all roles (connection types) for this element
+    for role_str, successors in element.connections.items():
+        # Check each successor
+        for successor in successors:
+            # Iterate through all concepts of the successor
+            for concept in successor.concepts:
+                # Create an existential role restriction
+                existential_concept = elFactory.getExistentialRoleRestriction(
+                    elFactory.getRole(role_str), 
+                    concept
+                )
+                
+                # Check if the existential concept is in allConcepts
+                if existential_concept in allConcepts:
+                    # Add the concept to the element if it's not already present
+                    if existential_concept not in element.concepts:
+                        print(f"Adding existential concept: {formatter.format(existential_concept)}")
+                        element.add_concept(existential_concept)
 
-def apply_sub_rule():
-    pass
+def apply_sub_rule(world: World, element: Element):
+    """
+    Apply subsumption rule for an element
+    
+    :param world: The world containing all elements
+    :param element: The element to apply the rule to
+    """
+    # Create a copy of the current concepts to iterate over
+    current_concepts = element.concepts.copy()
+    
+    for concept in current_concepts:
+        # Iterate through all axioms in the tbox
+        for axiom in axioms:
+            # Check if the axiom is a General Concept Inclusion (GCI) axiom
+            axiom_type = axiom.getClass().getSimpleName()
+            if axiom_type == "GeneralConceptInclusion":
+                # Get the subsumee and subsumer of the axiom
+                subsumee = axiom.lhs()
+                subsumer = axiom.rhs()
+                #print(f"Concept: {formatter.format(concept)}, Subsumee: {formatter.format(subsumee)}")
+                
+                # Check if the current concept matches the subsumee
+                if concept == subsumee:
+                    # Check if the subsumer is in allConcepts to ensure validity
+                    if subsumer in allConcepts:
+                        # Add the subsumer to the element if not already present
+                        if subsumer not in element.concepts:
+                            print(f"Adding subsumer: {formatter.format(subsumer)} "
+                                  f"for concept: {formatter.format(concept)}")
+                            element.add_concept(subsumer)
 
 def remove_equivalence_axioms():
     global axioms
