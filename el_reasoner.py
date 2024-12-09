@@ -38,44 +38,45 @@ def main():
 def apply_el_alorithm(class_name):
     # Start with one subsumer. Later just do a for loop that iterates over all conceptNames
     # subsumerStr = formatter.format(random.choice(conceptNames))
+    conceptNames = ontology.getConceptNames()
     subsumee = elFactory.getConceptName(class_name)
     subsumer = elFactory.getConceptName("Protein")
-    world = World()
     # transform each equivalence axioms to two subsumptions
     remove_equivalence_axioms()
 
-    changed = True
-    init_element = Element(0)
-    init_element.add_concept(subsumee)
-    world.add_element(init_element)
+    for subsumer in conceptNames:
+        changed = True
+        world = World()
+        init_element = Element(0)
+        init_element.add_concept(subsumee)
+        world.add_element(init_element)
 
-    while changed:
-        changed = False
-        for el in world.elements:
-            # Subsumption rule
-            changed = True
-            while changed:
-                changed = apply_sub_rule(el)
+        while changed:
+            changed = False
+            for el in world.elements:
+                # Subsumption rule
+                changed = True
+                while changed:
+                    changed = apply_sub_rule(el)
 
-                # AND-rule 1
-                changed = apply_and_rule_1(el)
+                    # AND-rule 1
+                    changed = apply_and_rule_1(el)
 
-                # EXISTS-rule 1
-                changed = apply_exist_rule_1(world, el)
+                    # EXISTS-rule 1
+                    changed = apply_exist_rule_1(world, el)
 
-                # AND-rule 2
-                changed = apply_and_rule_2(el)
+                    # AND-rule 2
+                    changed = apply_and_rule_2(el)
 
-                # EXISTS-rule 2
-                changed = apply_exist_rule_2(el)
+                    # EXISTS-rule 2
+                    changed = apply_exist_rule_2(el)
 
-                # T-rule
-                changed = apply_t_rule(el)
-
-
-    if subsumer in init_element.concepts:
-        print("SATISFIED!")
-        # Satisifed
+                    # T-rule
+                    changed = apply_t_rule(el)
+        
+        if subsumer in init_element.concepts:
+            print(f"{formatter.format(subsumer)}")
+            # Satisifed
 
     
     # TO-DO: -> Check that only concepts from the input are assigned 
@@ -110,7 +111,7 @@ def apply_t_rule(element: Element):
     top_concept = elFactory.getTop()
     
     if top_concept not in element.concepts:
-        print(f"Adding top concept: {formatter.format(top_concept)}")
+        # print(f"Adding top concept: {formatter.format(top_concept)}")
         element.add_concept(top_concept)
         alteredInterpretation = True
 
@@ -123,7 +124,7 @@ def apply_and_rule_1(element: Element):
     for concept in concepts:
         conceptType = concept.getClass().getSimpleName()
         if conceptType == "ConceptConjunction":
-            print(formatter.format(concept))
+            # print(formatter.format(concept))
             conjuncts = concept.getConjuncts()
             if len(conjuncts) != 2:
                 print("And-Rule-1 Conjunction Error")
@@ -149,7 +150,7 @@ def apply_and_rule_2(element: Element):
         
         # Check if conjunction is in allConcepts
         if conjunction in allConcepts:
-            print(f"Adding conjunction: {formatter.format(conjunction)}")
+            # print(f"Adding conjunction: {formatter.format(conjunction)}")
             element.add_concept(conjunction)
             alteredInterpretation = True
 
@@ -162,7 +163,7 @@ def apply_exist_rule_1(world: World, element: Element):
     :param world: The world containing all elements
     :param element: The element to apply the rule to
     """
-    print(f"World before:\n{world}\n")
+    #print(f"World before:\n{world}\n")
     alteredInterpretation = False
     concepts = element.concepts
 
@@ -175,9 +176,9 @@ def apply_exist_rule_1(world: World, element: Element):
             filler = concept.filler()
             
             # Print debug information
-            print("Found existential role restriction: " + formatter.format(concept))
-            print("Role: " + formatter.format(role))
-            print("Filler: " + formatter.format(filler))
+            # print("Found existential role restriction: " + formatter.format(concept))
+            # print("Role: " + formatter.format(role))
+            # print("Filler: " + formatter.format(filler))
             
             # Check if this role already has successors
             role_str = formatter.format(role)
@@ -188,7 +189,7 @@ def apply_exist_rule_1(world: World, element: Element):
             for successor in element.connections.get(role_str, set()):
                 # Check if the filler concept is in any of the successor's concepts
                 if successor.concepts and filler in successor.concepts:
-                    print("Concept already satisifed!")
+                    # print("Concept already satisifed!")
                     return alteredInterpretation
             
             # Try to find an existing element with the filler as initial concept
@@ -199,11 +200,11 @@ def apply_exist_rule_1(world: World, element: Element):
                     break
             
             if matching_element:
-                print("Found a matching element with correct init concept")
+                # print("Found a matching element with correct init concept")
                 # Use existing element as successor
                 element.connect_to(matching_element, role_str)
             else:
-                print("Creating new element")
+                # print("Creating new element")
                 # Create a new element with the filler as initial concept
                 new_element = Element(len(world.elements))
                 new_element.add_concept(filler)
@@ -223,6 +224,7 @@ def apply_exist_rule_2(element: Element):
     :param world: The world containing all elements
     :param element: The element to apply the rule to
     """
+    alteredInterpretation = False
     # Iterate through all roles (connection types) for this element
     for role_str, successors in element.connections.items():
         # Check each successor
@@ -239,8 +241,11 @@ def apply_exist_rule_2(element: Element):
                 if existential_concept in allConcepts:
                     # Add the concept to the element if it's not already present
                     if existential_concept not in element.concepts:
-                        print(f"Adding existential concept: {formatter.format(existential_concept)}")
+                        #print(f"Adding existential concept: {formatter.format(existential_concept)}")
                         element.add_concept(existential_concept)
+                        alteredInterpretation = True
+                    
+    return alteredInterpretation
 
 def apply_sub_rule(element: Element):
     """
@@ -249,6 +254,7 @@ def apply_sub_rule(element: Element):
     :param world: The world containing all elements
     :param element: The element to apply the rule to
     """
+    alteredInterpretation = False
     # Create a copy of the current concepts to iterate over
     current_concepts = element.concepts.copy()
     
@@ -269,9 +275,12 @@ def apply_sub_rule(element: Element):
                     if subsumer in allConcepts:
                         # Add the subsumer to the element if not already present
                         if subsumer not in element.concepts:
-                            print(f"Adding subsumer: {formatter.format(subsumer)} "
-                                  f"for concept: {formatter.format(concept)}")
+                            # print(f"Adding subsumer: {formatter.format(subsumer)} "
+                            #       f"for concept: {formatter.format(concept)}")
                             element.add_concept(subsumer)
+                            alteredInterpretation = True
+    
+    return alteredInterpretation
 
 def remove_equivalence_axioms():
     global axioms
@@ -302,7 +311,7 @@ def remove_equivalence_axioms():
     
     axioms.extend(newAxioms)
     
-    print(f"Number of axioms after transformation: {len(axioms)}")
+    #print(f"Number of axioms after transformation: {len(axioms)}")
 
 def process_ontology(ontology_file, class_name):
     """
@@ -310,7 +319,7 @@ def process_ontology(ontology_file, class_name):
     """
     global conceptNames
 
-    print(f"Processing ontology file '{ontology_file}' for class '{class_name}'.")
+    #print(f"Processing ontology file '{ontology_file}' for class '{class_name}'.")
     
     # Load the ontology
     load_ontology(ontology_file)
@@ -326,7 +335,7 @@ def load_ontology(ontology_file):
     """
     global ontology, tbox, axioms, allConcepts, conceptNames
 
-    print(f"Loading ontology from file: {ontology_file}...")
+    #print(f"Loading ontology from file: {ontology_file}...")
 
     try:
         ontology = parser.parseFile(ontology_file)
@@ -339,7 +348,7 @@ def load_ontology(ontology_file):
         allConcepts = list(ontology.getSubConcepts())
         conceptNames = list(ontology.getConceptNames())
 
-        print_ontology_summary()
+        #print_ontology_summary()
 
     except Exception as e:
         print(f"Error loading ontology: {e}")
