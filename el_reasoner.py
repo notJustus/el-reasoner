@@ -42,38 +42,29 @@ def apply_el_alorithm(class_name):
     subsumee = elFactory.getConceptName(class_name)
     subsumer = elFactory.getConceptName("Protein")
     # transform each equivalence axioms to two subsumptions
+    remove_alc_axioms()
     remove_equivalence_axioms()
 
-    for subsumer in conceptNames:
-        changed = True
-        world = World()
-        init_element = Element(0)
-        init_element.add_concept(subsumee)
-        world.add_element(init_element)
+    world = World()
+    init_element = Element(0)
+    init_element.add_concept(subsumee)
+    world.add_element(init_element)
 
-        while changed:
-            changed = False
-            for el in world.elements:
-                # Subsumption rule
-                changed = True
-                while changed:
-                    changed = apply_sub_rule(el)
+    changed = True
+    while changed:
+        changed = False
+        for el in world.elements:
+            sub_changed = apply_sub_rule(el)
+            and1_changed = apply_and_rule_1(el)
+            exist1_changed = apply_exist_rule_1(world, el)
+            and2_changed = apply_and_rule_2(el)
+            exist2_changed = apply_exist_rule_2(el)
+            t_changed = apply_t_rule(el)
 
-                    # AND-rule 1
-                    changed = apply_and_rule_1(el)
-
-                    # EXISTS-rule 1
-                    changed = apply_exist_rule_1(world, el)
-
-                    # AND-rule 2
-                    changed = apply_and_rule_2(el)
-
-                    # EXISTS-rule 2
-                    changed = apply_exist_rule_2(el)
-
-                    # T-rule
-                    changed = apply_t_rule(el)
+            changed = changed or sub_changed or and1_changed or exist1_changed or \
+                    and2_changed or exist2_changed or t_changed
         
+    for subsumer in conceptNames:
         if subsumer in init_element.concepts:
             print(f"{formatter.format(subsumer)}")
             # Satisifed
@@ -98,6 +89,36 @@ def apply_el_alorithm(class_name):
     # print("-----")
     # apply_sub_rule(sampleWorld, element0)
 
+def remove_alc_axioms():
+   global allConcepts, axioms
+   allowedConceptTypes = ["ConceptName", "TopConcept$", "ExistentialRoleRestriction", "ConceptConjunction"]
+
+   # Filter concepts
+   allConcepts = [concept for concept in allConcepts if concept.getClass().getSimpleName() in allowedConceptTypes]
+
+   # Filter axioms containing disallowed concepts
+   filtered_axioms = []
+   for axiom in axioms:
+       keep_axiom = True
+       
+       # Check concepts in GCI axioms
+       if axiom.getClass().getSimpleName() == "GeneralConceptInclusion":
+           lhs_type = axiom.lhs().getClass().getSimpleName()
+           rhs_type = axiom.rhs().getClass().getSimpleName()
+           if lhs_type not in allowedConceptTypes or rhs_type not in allowedConceptTypes:
+               keep_axiom = False
+               
+       # Check concepts in equivalence axioms        
+       elif axiom.getClass().getSimpleName() == "EquivalenceAxiom":
+           for concept in axiom.getConcepts():
+               if concept.getClass().getSimpleName() not in allowedConceptTypes:
+                   keep_axiom = False
+                   break
+                   
+       if keep_axiom:
+           filtered_axioms.append(axiom)
+           
+   axioms = filtered_axioms
 
 def apply_t_rule(element: Element):
     """
@@ -348,7 +369,7 @@ def load_ontology(ontology_file):
         allConcepts = list(ontology.getSubConcepts())
         conceptNames = list(ontology.getConceptNames())
 
-        #print_ontology_summary()
+        # print_ontology_summary()
 
     except Exception as e:
         print(f"Error loading ontology: {e}")
@@ -358,10 +379,10 @@ def print_ontology_summary():
     Print a summary of the loaded ontology.
     """
     print(f"There are {len(axioms) if axioms else 0} axioms in the TBox.")
-    # for axiom in axioms:
-    #     print(formatter.format(axiom))
+    for axiom in axioms:
+        print(formatter.format(axiom))
     print(f"There are {len(allConcepts) if allConcepts else 0} concepts in the ontology.")
-    # print([formatter.format(x) for x in allConcepts])
+    print([formatter.format(x) for x in allConcepts])
     print(f"There are {len(conceptNames) if conceptNames else 0} concept names in the ontology.")
 
 if __name__ == "__main__":
