@@ -37,48 +37,87 @@ def main():
 
 def apply_el_alorithm(class_name):
     # Start with one subsumer. Later just do a for loop that iterates over all conceptNames
-    subsumerStr = random.choice(conceptNames)
-    #subsumer = elFactory.getConceptName(subsumerStr)
-    #subsumee = elFactory.getConceptName(class_name)
+    # subsumerStr = formatter.format(random.choice(conceptNames))
+    subsumee = elFactory.getConceptName(class_name)
+    subsumer = elFactory.getConceptName("Protein")
     world = World()
     # transform each equivalence axioms to two subsumptions
     remove_equivalence_axioms()
 
-    sampleWorld = World()
-    element0 = Element(0)
-    element0.add_concept(random.sample(allConcepts, 10))
-    sampleWorld.add_element(element0)
+    changed = True
+    init_element = Element(0)
+    init_element.add_concept(subsumee)
+    world.add_element(init_element)
 
-    apply_and_rule_1(sampleWorld, element0)
-    #print(f"Num Concepts before: {len(element0.concepts)}")
-    apply_and_rule_2(element0)
-    #print(f"Num Concepts after: {len(element0.concepts)}")
-    apply_exist_rule_1(sampleWorld, element0)
-    print(f"\nWorld after:\n{sampleWorld}\n")
-    print("-----")
-    apply_exist_rule_2(sampleWorld, element0)
-    print("-----")
-    apply_sub_rule(sampleWorld, element0)
+    while changed:
+        changed = False
+        for el in world.elements:
+            # Subsumption rule
+            changed = True
+            while changed:
+                changed = apply_sub_rule(el)
+
+                # AND-rule 1
+                changed = apply_and_rule_1(el)
+
+                # EXISTS-rule 1
+                changed = apply_exist_rule_1(world, el)
+
+                # AND-rule 2
+                changed = apply_and_rule_2(el)
+
+                # EXISTS-rule 2
+                changed = apply_exist_rule_2(el)
+
+                # T-rule
+                changed = apply_t_rule(el)
 
 
-def apply_t_rule(world: World, element: Element):
+    if subsumer in init_element.concepts:
+        print("SATISFIED!")
+        # Satisifed
+
+    
+    # TO-DO: -> Check that only concepts from the input are assigned 
+
+    # sampleWorld = World()
+    # element0 = Element(0)
+    # element0.add_concept(random.sample(allConcepts, 10))
+    # sampleWorld.add_element(element0)
+
+    # apply_t_rule(sampleWorld, element0)
+    # apply_and_rule_1(sampleWorld, element0)
+    # #print(f"Num Concepts before: {len(element0.concepts)}")
+    # apply_and_rule_2(element0)
+    # #print(f"Num Concepts after: {len(element0.concepts)}")
+    # apply_exist_rule_1(sampleWorld, element0)
+    # print(f"\nWorld after:\n{sampleWorld}\n")
+    # print("-----")
+    # apply_exist_rule_2(sampleWorld, element0)
+    # print("-----")
+    # apply_sub_rule(sampleWorld, element0)
+
+
+def apply_t_rule(element: Element):
     """
     Apply T-rule for an element by adding the top concept
     
     :param world: The world containing all elements
     :param element: The element to apply the rule to
     """
+    alteredInterpretation = False
     # Create the top concept using elFactory
     top_concept = elFactory.getTop()
     
-    # Check if the top concept is in allConcepts
-    if top_concept in allConcepts:
-        # Add the top concept to the element if not already present
-        if top_concept not in element.concepts:
-            print(f"Adding top concept: {formatter.format(top_concept)}")
-            element.add_concept(top_concept)
+    if top_concept not in element.concepts:
+        print(f"Adding top concept: {formatter.format(top_concept)}")
+        element.add_concept(top_concept)
+        alteredInterpretation = True
 
-def apply_and_rule_1(world, element: Element):
+    return alteredInterpretation 
+
+def apply_and_rule_1(element: Element):
+    alteredInterpretation = False
     concepts = element.concepts
 
     for concept in concepts:
@@ -95,8 +134,12 @@ def apply_and_rule_1(world, element: Element):
 
             element.concepts.append(newConceptA)
             element.concepts.append(newConceptB)
+            alteredInterpretation = True
+
+    return alteredInterpretation
 
 def apply_and_rule_2(element: Element):
+    alteredInterpretation = False
     concepts = element.concepts
     
     # Generate all unique combinations of 2 concepts
@@ -108,6 +151,9 @@ def apply_and_rule_2(element: Element):
         if conjunction in allConcepts:
             print(f"Adding conjunction: {formatter.format(conjunction)}")
             element.add_concept(conjunction)
+            alteredInterpretation = True
+
+    return alteredInterpretation
 
 def apply_exist_rule_1(world: World, element: Element):
     """
@@ -117,6 +163,7 @@ def apply_exist_rule_1(world: World, element: Element):
     :param element: The element to apply the rule to
     """
     print(f"World before:\n{world}\n")
+    alteredInterpretation = False
     concepts = element.concepts
 
     for concept in concepts:
@@ -137,43 +184,39 @@ def apply_exist_rule_1(world: World, element: Element):
             if role_str not in element.connections:
                 element.connections[role_str] = set()
             
-            # Flag to track if the restriction is already satisfied
-            restriction_satisfied = False
-            
             # Check existing successors for the role
             for successor in element.connections.get(role_str, set()):
                 # Check if the filler concept is in any of the successor's concepts
                 if successor.concepts and filler in successor.concepts:
                     print("Concept already satisifed!")
-                    restriction_satisfied = True
+                    return alteredInterpretation
+            
+            # Try to find an existing element with the filler as initial concept
+            matching_element = None
+            for e in world.elements:
+                if e.concepts and formatter.format(e.concepts[0]) == formatter.format(filler):
+                    matching_element = e
                     break
             
-            # If restriction is not satisfied
-            if not restriction_satisfied:
-                # Try to find an existing element with the filler as initial concept
-                matching_element = None
-                for e in world.elements:
-                    if e.concepts and formatter.format(e.concepts[0]) == formatter.format(filler):
-                        matching_element = e
-                        break
+            if matching_element:
+                print("Found a matching element with correct init concept")
+                # Use existing element as successor
+                element.connect_to(matching_element, role_str)
+            else:
+                print("Creating new element")
+                # Create a new element with the filler as initial concept
+                new_element = Element(len(world.elements))
+                new_element.add_concept(filler)
                 
-                if matching_element:
-                    print("Found a matching element with correct init concept")
-                    # Use existing element as successor
-                    element.connect_to(matching_element, role_str)
-                else:
-                    print("Creating new element")
-                    # Create a new element with the filler as initial concept
-                    new_element = Element(len(world.elements))
-                    new_element.add_concept(filler)
-                    
-                    # Add the new element to the world
-                    world.add_element(new_element)
-                    
-                    # Connect the new element as a successor
-                    element.connect_to(new_element, role_str)
+                # Add the new element to the world
+                world.add_element(new_element)
+                
+                # Connect the new element as a successor
+                element.connect_to(new_element, role_str)
+            
+            return True
 
-def apply_exist_rule_2(world: World, element: Element):
+def apply_exist_rule_2(element: Element):
     """
     Apply existential rule 2 for an element
     
@@ -199,7 +242,7 @@ def apply_exist_rule_2(world: World, element: Element):
                         print(f"Adding existential concept: {formatter.format(existential_concept)}")
                         element.add_concept(existential_concept)
 
-def apply_sub_rule(world: World, element: Element):
+def apply_sub_rule(element: Element):
     """
     Apply subsumption rule for an element
     
